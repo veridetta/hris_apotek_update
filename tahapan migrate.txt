@@ -1,0 +1,13 @@
+1. php artisan migrate:refresh --path=database/migrations/2014_10_12_000000_create_users_table.php
+2. php artisan migrate:refresh --path=database/migrations/2014_10_12_100000_create_password_resets_table.php
+3. php artisan migrate:refresh --path=database/migrations/2019_08_19_000000_create_failed_jobs_table.php
+4. php artisan migrate:refresh --path=database/migrations/2019_12_14_000001_create_personal_access_tokens_table.php
+5. php artisan migrate:refresh --path=database/migrations/2022_09_25_053343_create_jabatans_table.php
+6. php artisan migrate:refresh --path=database/migrations/2022_09_25_084443_create_salaries_table.php
+7. php artisan migrate:refresh --path=database/migrations/2022_09_24_061949_create_employees_table.php
+8. php artisan migrate:refresh --path=database/migrations/2022_09_25_060248_create_shifts_table.php
+9. php artisan migrate:refresh --path=database/migrations/2022_09_25_110147_create_schedules_table.php
+10. php artisan migrate:refresh --path=database/migrations/2022_09_25_115848_create_attendances_table.php
+11. php artisan migrate:refresh --path=database/migrations/2022_09_26_162628_create_job_batches_table.php
+12. php artisan migrate:refresh --path=database/migrations/2022_09_27_225603_create_settings_table.php
+13. php artisan migrate:refresh --path=database/migrations/2022_10_04_080711_create_payments_table.php
