@@ -4,7 +4,7 @@
         $company = App\Models\Setting::first();
         ?>
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="//files.segar-sehat.com/public/images/{{$company->logo}}" style="height: 60px !important;width:60px !important;max-height:6.5rem !important;"/>
+            <img src="//files.segar-sehat.com/public/images/{{$company->logo}}" style="height: 180px !important;width:180px !important;max-height:10.5rem !important;"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

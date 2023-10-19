@@ -25,6 +25,7 @@ class Employee extends Authenticatable
         'ttl',
         'faceid',
         'facereq',
+        'status_karyawan',
     ];
     public function jabatans()
     {

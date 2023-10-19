@@ -25,7 +25,7 @@ class ScheduleController extends Controller
     {
         $companies = Setting::first();
         $shifts= Shift::all();
-        $employees= Employee::all();
+        $employees= Employee::where('status_karyawan','=','Aktif')->orderBy('name')->get();
         return $dataTable->render('layouts.schedules.index',['shifts'=>$shifts,'employees'=>$employees,'company'=>$companies]);
     }
 

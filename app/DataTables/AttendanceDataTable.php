@@ -44,7 +44,7 @@ class AttendanceDataTable extends DataTable
             ->join('employees', 'employees.id', '=', 'attendances.employees_id')
             ->join('schedules', 'schedules.id', '=', 'attendances.schedules_id')
             ->join('shifts','shifts.id','=','schedules.shifts_id')
-            ->where('status','!=','Belum Masuk')
+            ->where('status','!=','Belum Masuk')->where('employees.status_karyawan',"Aktif")
             ->whereBetween('schedules.dates', [$this->attributes['from'], $this->attributes['to']]); // M;
         return $this->applyScopes($data);
     }

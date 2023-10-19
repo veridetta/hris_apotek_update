@@ -129,10 +129,21 @@ class EmployeeController extends Controller
      */
     public function destroy(Request $request)
     {
-        $company = Employee::where('id',$request->id)->delete();
-      
-        return Response()->json($company);
+        // Temukan pegawai berdasarkan ID
+        $employee = Employee::find($request->id);
+        // Periksa apakah pegawai ditemukan
+        if ($employee) {
+            // Update status pegawai menjadi "Nonaktif"
+            $employee->update(['status_karyawan' => 'Nonaktif']);
+        } else {
+            // Pegawai tidak ditemukan
+            return response()->json(['message' => 'Pegawai tidak ditemukan'], 404);
+        }
+
+        // Kirim respons sukses
+        return response()->json(['message' => 'Status pegawai berhasil diubah']);
     }
+
     public function updateEmployee(Request $request, $id)
     {
         // Validasi data masukan jika diperlukan

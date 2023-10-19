@@ -225,16 +225,20 @@
             });
         }
         function getPlaceName(lat, lng) {
-            var apiUrl = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lng;
-            
+            var apiKey = 'a43f3fa0dd7a47289052da081c0f641a'; // Gantilah dengan API key OpenCage Anda
+            var apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}&language=en&pretty=1`;
+
             $.ajax({
                 url: apiUrl,
                 method: "GET",
                 dataType: "json",
                 success: function(data) {
-                    if (data.display_name) {
+                    if (data.results.length > 0) {
+                        // Ambil nama tempat (alamat) dari hasil pencarian
+                        var namaTempat = data.results[0].formatted;
+
                         // Isi input "Lokasi Sekarang" dengan nama tempat
-                        $("#lokasi_select").val(data.display_name);
+                        $("#lokasi_select").val(namaTempat);
                     } else {
                         // Jika tidak ada nama tempat yang ditemukan, beri pesan alternatif
                         $("#lokasi_select").val("Nama tempat tidak ditemukan");
@@ -246,6 +250,7 @@
                 }
             });
         }
+
         function calculateDistance(lat1, lon1, lat2, lon2) {
             var radlat1 = Math.PI * lat1 / 180;
             var radlat2 = Math.PI * lat2 / 180;

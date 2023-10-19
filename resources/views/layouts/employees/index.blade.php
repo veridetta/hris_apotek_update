@@ -91,7 +91,9 @@
 <script src="https://cdn.faceio.net/fio.js"></script>
 {!! $dataTable->scripts() !!}
 <script type="text/javascript">
-/*
+  $('#employeesdatatable-table').addClass('table-responsive w-100');
+
+  /*
   $(function () {
     var table = $('.user_datatable').DataTable({
         processing: true,
@@ -175,14 +177,9 @@
       });
   
   });
+  
   function addFace(id,name){
-    const faceio = new faceIO("fioaa978"); // Replace with your application Public ID
-    // Start the facial enrollment process
-    updateEmployeeData(id, name);
-		
-    
-  };
-  function asal(){
+    const faceio = new faceIO("fioaa978");
     faceio.enroll({
 			"locale": "auto", // Default user locale
 			"userConsent": false, // Set to true if you have already collected user consent

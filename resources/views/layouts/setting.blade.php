@@ -109,6 +109,8 @@
 
 @push('js')
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/places.js/1/places.min.js"></script>
+
 <script>
   function updateLocationSelect(marker) {
         var latlng = marker.getLatLng();
@@ -155,25 +157,27 @@
     $("#Longitude").val(position.lng).keyup();
     updateLocationSelect(marker);
     var latlng = marker.getLatLng();
-
-    // Gunakan layanan geocoder, seperti Nominatim, untuk mendapatkan nama tempat (alamat)
-    $.ajax({
-        url: "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + latlng.lat + "&lon=" + latlng.lng,
-        type: "GET",
-        success: function(data) {
-            if (data.display_name) {
-                var namaTempat = data.display_name;
-
-                // Perbarui nilai input "lokasi_select" dengan nama tempat
-                $("#lokasi_select").val(namaTempat);
-            } else {
-                alert("Nama tempat tidak ditemukan");
-            }
-        },
-        error: function(error) {
-            alert("Terjadi kesalahan dalam mendapatkan nama tempat");
-        }
-    });
+      var lat = latlng.lat;
+      var lng = latlng.lng;
+      var apiKey = 'a43f3fa0dd7a47289052da081c0f641a'; // Gantilah dengan API key OpenCage Anda
+      $.ajax({
+          url: `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}&language=en&pretty=1`,
+          type: 'GET',
+          success: function(data) {
+              if (data.results.length > 0) {
+                  var hasilPencarian = data.results[0];
+                  // Ambil nama tempat (alamat) dari hasil pencarian
+                  var namaTempat = hasilPencarian.formatted;
+                  // Perbarui nilai input "lokasi_select" dengan nama tempat
+                  $("#lokasi_select").val(namaTempat);
+              } else {
+                  alert("Nama tempat tidak ditemukan");
+              }
+          },
+          error: function(error) {
+              alert("Terjadi kesalahan dalam mendapatkan nama tempat");
+          }
+      });
   });
 
   $("#Latitude, #Longitude").change(function() {
@@ -189,24 +193,27 @@
   $("#btnSearch").click(function() {
     var lokasi = $("#lokasi").val(); // Mendapatkan nilai lokasi dari input
 
-    // Gunakan layanan geocoder, seperti Nominatim, untuk mengonversi teks lokasi menjadi koordinat
-    // Gantilah URL dengan URL geocoder yang Anda gunakan
+    // Gantilah 'YOUR_API_KEY' dengan API key OpenCage Anda
+    var apiKey = 'a43f3fa0dd7a47289052da081c0f641a';
+
     $.ajax({
-        url: "https://nominatim.openstreetmap.org/search?format=json&q=" + lokasi,
-        type: "GET",
+        url: `https://api.opencagedata.com/geocode/v1/json?q=${lokasi}&key=${apiKey}`,
+        type: 'GET',
         success: function(data) {
-            if (data.length > 0) {
-                var hasilPencarian = data[0];
-                
+            if (data.results.length > 0) {
+                var hasilPencarian = data.results[0];
+
                 // Ambil nama tempat (alamat) dari hasil pencarian
-                var namaTempat = hasilPencarian.display_name;
+                var namaTempat = hasilPencarian.formatted;
 
                 // Perbarui nilai input "lokasi_select" dengan nama tempat
                 $("#lokasi_select").val(namaTempat);
-                var latitude = parseFloat(hasilPencarian.lat);
-                var longitude = parseFloat(hasilPencarian.lon);
+
+                var latitude = hasilPencarian.geometry.lat;
+                var longitude = hasilPencarian.geometry.lng;
                 $("#lat_select").val(latitude);
                 $("#lng_select").val(longitude);
+
                 // Buat objek LatLng dari hasil pencarian
                 var latlng = L.latLng(latitude, longitude);
 
@@ -214,7 +221,7 @@
                 marker.setLatLng(latlng).update();
 
                 // Setel tampilan peta untuk menampilkan marker dan lakukan zoom
-                map.setView(latlng, 20); // Ubah nilai zoom sesuai kebutuhan Anda
+                map.setView(latlng, 20); // Sesuaikan nilai zoom sesuai kebutuhan Anda
             } else {
                 alert("Lokasi tidak ditemukan");
             }
@@ -224,6 +231,7 @@
         }
     });
 });
+
 
 })
 </script>

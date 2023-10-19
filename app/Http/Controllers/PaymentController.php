@@ -76,7 +76,9 @@ class PaymentController extends Controller
      */
     public function show(Request $request)
     {
-        $employee=Employee::select('employees.id','employees.name','jabatans.jabatan','salaries.salary','salaries.makan','salaries.transport')->join('jabatans', 'jabatans.id', '=', 'employees.jabatans_id')->join('salaries','salaries.jabatan_id','=','jabatans.id')->get();
+        $employee=Employee::select('employees.id','employees.name','jabatans.jabatan','salaries.salary','salaries.makan','salaries.transport')->join('jabatans', 'jabatans.id', '=', 'employees.jabatans_id')->join('salaries','salaries.jabatan_id','=','jabatans.id')
+        ->where('employees.status_karyawan','=','Aktif')
+        ->get();
         $bulan=$request->month;
         $tahun=$request->year;
         

@@ -48,7 +48,7 @@
                   <label for="employees" class="form-label">Pegawai :</label>
                   <select name="employees" class="form-control" id="employees">
                     @foreach ($employees as $employee)
-                     <option value="{{$employee->id}}">{{$employee->name}} </option>
+                     <option value="{{$employee->id}}" class="text-capitalize">{{$employee->name}} </option>
                     @endforeach
                   </select>
                 </div>

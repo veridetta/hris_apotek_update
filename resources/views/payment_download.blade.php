@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+	<style>
+		.page-break {
+			page-break-before: always;
+		}
+	</style>
+	
 <body style="padding-left:15px;" onLoad="javascript:print()">
     <?php
     use App\Models\Attendance;
@@ -114,7 +120,7 @@
 		</tr>
 		<tr>
 			<td style="width:740px">&nbsp;</td>
-			<td style="width:412px;"><img src="//files.segar-sehat.com/public/images/{{$setting->ttd}}" style="max-width:120px;min-height:60px;max-height:153px;"/>
+			<td style="width:180px;"><img src="//files.segar-sehat.com/public/images/{{$setting->ttd}}" style="max-width:120px;min-height:60px;max-height:180px;"/>
 			</td>
 		</tr>
 		<tr>
@@ -127,19 +133,14 @@
 		</tr>
 	</tbody>
 </table>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
     <br>
     <?php
     
     $data = Schedule::select('attendances.id','attendances.at_in','attendances.at_out','attendances.lembur','shifts.in','shifts.out','attendances.status','schedules.dates')->join('attendances','attendances.schedules_id','=','schedules.id')->join('shifts','shifts.id','=','schedules.shifts_id')->join('employees','employees.id','=','attendances.employees_id')->where('employees.id',request()->id)->whereMonth('schedules.dates',request()->month)->whereYear('schedules.dates',request()->year)->get();
     ?>
-    <p style="text-align:center"><strong>LAMPIRAN KEHADIRAN KARYAWAN</strong></p>
-
+	<div class="page-break"></div>
+	<div id="lampiran-page-2">
+		<p style="text-align:center"><strong>LAMPIRAN KEHADIRAN KARYAWAN</strong></p>
     <p style="text-align:center"><strong>Periode {{getMonthName(request()->month).' '.request()->year}}</strong></p>
     
     <table border="1" cellpadding="1" cellspacing="1" style="width:100%">
@@ -176,6 +177,7 @@
 	$now = Carbon::now();
 	$dateIndonesia = $now->format('Y/m/d');
 	?>
-    <p style="text-align: center;">Generated at {{convertToIndonesianDate($dateIndonesia)." ".$now->format('H:i:s')}}</p>
+    <p style="text-align: center;" class="h4">Generated at {{convertToIndonesianDate($dateIndonesia)." ".$now->format('H:i:s')}}</p>
+	</div>
 </body>
 </html>
