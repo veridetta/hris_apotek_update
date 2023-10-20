@@ -26,7 +26,7 @@ class EmployeesDataTable extends DataTable
                 if ($data->facereq === null || $data->facereq === "") {
                     return '<a href="javascript:void(0)" onClick="addFace(\''.$data->id.'\', \''.$data->name.'\')" class="btn btn-sm btn-success">Tambah Wajah</a>';
                 } else {
-                    return '<a href="#" class="btn btn-sm btn-secondary">Terdaftar</a>';
+                    return '<p class="text-sm"><a href="javascript:void(0)" class="btn btn-sm btn-danger" onClick="addFace(\''.$data->id.'\', \''.$data->name.'\')">Ubah Wajah</a></p>';
                 }
             })->rawColumns(['action', 'facereq']);
         
@@ -41,7 +41,7 @@ class EmployeesDataTable extends DataTable
     public function query(Employee $model)
     {
         //return $model->newQuery()->select('*');;
-        $data = Employee::select('employees.status_karyawan','employees.id','employees.name','employees.facereq','employees.jk','employees.ttl','jabatans.jabatan')->join('jabatans', 'jabatans.id', '=', 'employees.jabatans_id') ;
+        $data = Employee::select('employees.status_karyawan','employees.id','employees.name','employees.facereq','employees.jk','employees.ttl','jabatans.jabatan')->join('jabatans', 'jabatans.id', '=', 'employees.jabatans_id')->where('employees.status_karyawan','Aktif') ;
         return $this->applyScopes($data);
     }
 
@@ -80,7 +80,6 @@ class EmployeesDataTable extends DataTable
             Column::make('jk')->searchable(false),
             Column::make('ttl')->searchable(false),
             Column::make('facereq', 'Daftar Wajah')->searchable(false),
-            Column::make('status_karyawan', 'Status')->searchable(false),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
