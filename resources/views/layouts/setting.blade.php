@@ -75,10 +75,10 @@
                               <div class="col-12 mt-2">
                                 <div class="row">
                                   <div class="col-6">
-                                    <input type="text" id="lat_select" name="lat_select" class="form-control" placeholder="Latitude"  value="{{$company->lat}}" required="">
+                                    <input type="text" step='any' id="lat_select" name="lat_select" class="form-control" placeholder="Latitude"  value="{{$company->lat}}" required="">
                                   </div>
                                   <div class="col-6">
-                                    <input type="text" id="lng_select" name="lng_select" class="form-control" placeholder="Longitude" value="{{$company->lng}}" required="">
+                                    <input type="text" step='any' id="lng_select" name="lng_select" class="form-control" placeholder="Longitude" value="{{$company->lng}}" required="">
                                   </div>
                                 </div>
                               </div>
@@ -120,6 +120,7 @@
     }
 
   $(function() {
+   
   // use below if you want to specify the path for leaflet's images
   //L.Icon.Default.imagePath = '@Url.Content("~/Content/img/leaflet")';
 
@@ -231,7 +232,6 @@
         }
     });
 });
-
 
 })
 </script>

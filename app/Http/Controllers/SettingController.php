@@ -38,6 +38,7 @@ class SettingController extends Controller
      */
     public function store(StoreSettingRequest $request)
     {
+        
         auth()->user();
         $validator = Validator::make($request->all(), [
             'company' => 'required',
